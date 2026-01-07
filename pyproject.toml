@@ -8,5 +8,8 @@ dependencies = [
     "matplotlib>=3.10.8",
     "numpy>=2.2.6",
     "pandas>=2.3.3",
+    "plotly>=6.5.0",
+    "scipy>=1.15.3",
+    "seaborn>=0.13.2",
     "streamlit>=1.52.2",
 ]

@@ -123,16 +123,6 @@ def render():
                 type="primary"
             )
     
-    # Tips section
-    with st.expander("Tips for Uploading Data"):
-        st.markdown("""
-        - **File Format**: Ensure your file is in CSV format with comma separators
-        - **Headers**: The first row should contain column names
-        - **Encoding**: UTF-8 encoding is recommended
-        - **Size**: For best performance, keep files under 200MB
-        - **Data Types**: The app automatically detects numeric, categorical, and datetime columns
-        - **Missing Values**: The app handles missing values - you can analyze them in the Analysis page
-        """)
     
+
     st.markdown("---")
-    st.info("Next Steps: Once your data is loaded, head to the **Analysis** or **Visualization** pages!")

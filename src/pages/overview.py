@@ -109,17 +109,6 @@ def render():
             st.session_state.data = data_handler.create_sample_data()
             st.rerun()
     
-    st.markdown("---")
-    
-    # Tips section
-    st.markdown("### Pro Tips")
-    st.markdown("""
-    - **Start with exploration**: Use the Analysis page to understand your data before creating visualizations
-    - **Check for missing values**: Always review the missing values report before analysis
-    - **Use filters**: Apply filters in the Analysis page to focus on specific subsets of your data
-    - **Export results**: You can download processed data and visualizations for use in reports
-    - **Experiment**: Try different chart types to find the best way to tell your data story
-    """)
+
     
     st.markdown("---")
-    st.markdown("Built with Streamlit | DS Doodle Pro")

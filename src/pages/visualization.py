@@ -214,26 +214,6 @@ def render():
                     fig = visualizer.create_3d_scatter(df, x_col, y_col, z_col, color, chart_title)
                     st.plotly_chart(fig, use_container_width=True)
     
-    # Tips section
-    st.markdown("---")
-    with st.expander("Visualization Tips"):
-        st.markdown("""
-        **Choosing the Right Chart:**
-        - **Line Chart**: Best for trends over time or continuous data
-        - **Scatter Plot**: Shows relationships between two numeric variables
-        - **Bar Chart**: Compares categories or groups
-        - **Histogram**: Shows distribution of a single numeric variable
-        - **Box Plot**: Shows distribution and identifies outliers
-        - **Pie Chart**: Shows proportions of a whole
-        - **Heatmap**: Shows correlations between numeric variables
-        - **3D Scatter**: Explores relationships between three numeric variables
-        
-        **Interaction Tips:**
-        - Hover over data points to see detailed information
-        - Click and drag to zoom into specific areas
-        - Double-click to reset the view
-        - Use the toolbar (top right) to pan, zoom, or download images
-        """)
+ 
     
     st.markdown("---")
-    st.info("Pro Tip: Experiment with different chart types to find the best way to visualize your data story!")

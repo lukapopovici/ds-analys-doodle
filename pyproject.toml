@@ -1,0 +1,12 @@
+[project]
+name = "ds-analys-doodle"
+version = "0.1.0"
+description = "Streamlit data science playground"
+requires-python = ">=3.10"
+
+dependencies = [
+    "matplotlib>=3.10.8",
+    "numpy>=2.2.6",
+    "pandas>=2.3.3",
+    "streamlit>=1.52.2",
+]

@@ -27,15 +27,8 @@ class DataScienceApp:
 
     def render_main(self, option):
         st.title("Basic Streamlit Interface")
-        st.write("This is a simple Streamlit app using a class.")
+    
 
-        name = st.text_input("Enter your name")
-
-        if st.button("Submit"):
-            if name:
-                st.success(f"Hello, {name}!")
-            else:
-                st.warning("Please enter your name.")
 
         if option == "Show Data":
             st.subheader("Data Preview")
@@ -50,7 +43,7 @@ class DataScienceApp:
 
 def main():
     st.set_page_config(
-        page_title="My First Streamlit App",
+        page_title="DS Doodle",
         layout="centered"
     )
 

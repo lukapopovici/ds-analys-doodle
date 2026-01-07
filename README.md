@@ -1,28 +1,30 @@
 # ds-analys-doodle
 
+## Installing UV and Building the Project
 
-## Installing UV and building the project
-
-
-```
+Install UV package manager:
+```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
+Create a virtual environment:
+```bash
 uv venv
-
-#not necessary if uv.lock is present int he folder
-
 ```
 
-## General dependencies
+Note: Installing dependencies is not necessary if `uv.lock` is present in the folder.
 
-```
+## General Dependencies
+
+Install required packages:
+```bash
 uv add streamlit numpy pandas matplotlib
 ```
 
-## Running
+## Running the Application
 
-```
+Navigate to the source directory and run Streamlit:
+```bash
 cd src
 streamlit run main.py --client.toolbarMode=minimal
-
 ```

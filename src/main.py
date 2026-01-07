@@ -26,7 +26,7 @@ class DataScienceApp:
         )
 
     def render_main(self, option):
-        st.title("Basic Streamlit Interface")
+        st.title("DS Doodle")
     
 
 

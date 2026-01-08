@@ -2,6 +2,7 @@ import streamlit as st
 from utils.data_handler import DataHandler
 from utils.visualizer import Visualizer
 from utils.analyzer import Analyzer
+from utils.terminal import terminal
 from pages import overview, analysis, visualization, upload
 
 st.set_page_config(
@@ -43,7 +44,20 @@ def main():
     # Sidebar navigation
     st.sidebar.title("DS Doodle Pro")
     st.sidebar.markdown("---")
-    
+
+    if 'terminal_enabled' not in st.session_state:
+        st.session_state['terminal_enabled'] = terminal.is_enabled()
+
+    new_terminal_val = st.sidebar.checkbox("Enable terminal logging", value=st.session_state['terminal_enabled'])
+    if new_terminal_val != st.session_state['terminal_enabled']:
+        st.session_state['terminal_enabled'] = new_terminal_val
+        terminal.set_enabled(new_terminal_val)
+
+    st.sidebar.write(f"Terminal: {'ENABLED' if terminal.is_enabled() else 'DISABLED'} — {terminal.message_count()} messages")
+    if st.sidebar.button("Clear terminal history"):
+        terminal.clear()
+        st.sidebar.success("Terminal history cleared")
+
     page = st.sidebar.radio(
         "Navigation",
         ["Overview", "Upload Data", "Analysis", "Visualization"],

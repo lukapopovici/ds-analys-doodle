@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from utils.visualizer import Visualizer
 from utils.data_handler import DataHandler
+from utils.terminal import terminal_toggle_ui
 
 def render():
     """Render the visualization page"""
@@ -45,7 +46,14 @@ def render():
     )
     
     st.sidebar.markdown("---")
-    
+
+    # Terminal toggle (compact, does NOT render messages)
+    try:
+        terminal_toggle_ui(st.sidebar)
+    except Exception:
+        # Fail gracefully if Streamlit isn't available for the helper
+        pass
+
     # Main visualization area
     st.markdown(f"### {chart_type}")
     

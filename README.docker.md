@@ -1,4 +1,4 @@
-## Docker / Container usage 🔧
+## Docker / Container usage 
 
 This project is a Streamlit app. The provided `Dockerfile` supports building dependencies from one of these lockfile formats (in preference order):
 

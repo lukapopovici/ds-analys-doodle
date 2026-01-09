@@ -66,7 +66,7 @@ def render():
             with st.spinner('Creating visualization...'):
                 color = None if color_col == "None" else color_col
                 fig = visualizer.create_line_chart(df, x_col, y_col, color, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Scatter Plot":
         col1, col2 = st.columns(2)
@@ -86,7 +86,7 @@ def render():
                 color = None if color_col == "None" else color_col
                 size = None if size_col == "None" else size_col
                 fig = visualizer.create_scatter_plot(df, x_col, y_col, color, size, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Bar Chart":
         col1, col2 = st.columns(2)
@@ -103,7 +103,7 @@ def render():
             with st.spinner('Creating visualization...'):
                 color = None if color_col == "None" else color_col
                 fig = visualizer.create_bar_chart(df, x_col, y_col, color, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Histogram":
         col1, col2 = st.columns(2)
@@ -118,7 +118,7 @@ def render():
         if st.button("Generate Chart", type="primary"):
             with st.spinner('Creating visualization...'):
                 fig = visualizer.create_histogram(df, column, nbins, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Box Plot":
         col1, col2 = st.columns(2)
@@ -134,7 +134,7 @@ def render():
             with st.spinner('Creating visualization...'):
                 x = None if x_col == "None" else x_col
                 fig = visualizer.create_box_plot(df, y_col, x, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Pie Chart":
         col1, col2 = st.columns(2)
@@ -150,7 +150,7 @@ def render():
             with st.spinner('Creating visualization...'):
                 values = None if values_col == "None" else values_col
                 fig = visualizer.create_pie_chart(df, names_col, values, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Area Chart":
         col1, col2 = st.columns(2)
@@ -167,7 +167,7 @@ def render():
             with st.spinner('Creating visualization...'):
                 color = None if color_col == "None" else color_col
                 fig = visualizer.create_area_chart(df, x_col, y_col, color, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Violin Plot":
         col1, col2 = st.columns(2)
@@ -183,7 +183,7 @@ def render():
             with st.spinner('Creating visualization...'):
                 x = None if x_col == "None" else x_col
                 fig = visualizer.create_violin_plot(df, y_col, x, chart_title)
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Correlation Heatmap":
         st.markdown("""
@@ -208,7 +208,7 @@ def render():
                 if st.button("Generate Chart", type="primary"):
                     with st.spinner('Creating visualization...'):
                         fig = visualizer.create_heatmap(df, chart_title, selected_cols)
-                        st.plotly_chart(fig, use_container_width=True)
+                        st.plotly_chart(fig, width='stretch')
         else:
             if len(numeric_cols) < 2:
                 st.warning("Need at least 2 numeric columns for correlation heatmap.")
@@ -218,7 +218,7 @@ def render():
                 if st.button("Generate Chart", type="primary"):
                     with st.spinner('Creating visualization...'):
                         fig = visualizer.create_heatmap(df, chart_title)
-                        st.plotly_chart(fig, use_container_width=True)
+                        st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Categorical Heatmap":
         st.markdown("""
@@ -243,7 +243,7 @@ def render():
                 if st.button("Generate Chart", type="primary"):
                     with st.spinner('Creating visualization...'):
                         fig = visualizer.create_categorical_heatmap(df, selected_cats, chart_title)
-                        st.plotly_chart(fig, use_container_width=True)
+                        st.plotly_chart(fig, width='stretch')
                         
                         st.info("""
                         **Interpreting Cramér's V:**
@@ -272,7 +272,7 @@ def render():
                 with st.spinner('Creating visualization...'):
                     color = None if color_col == "None" else color_col
                     fig = visualizer.create_3d_scatter(df, x_col, y_col, z_col, color, chart_title)
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
     
     elif chart_type == "Linear Regression":
         st.markdown("""
@@ -331,12 +331,12 @@ def render():
                             
                             # Actual vs Predicted plot
                             st.markdown("### Actual vs Predicted Values")
-                            st.plotly_chart(fig, use_container_width=True)
+                            st.plotly_chart(fig, width='stretch')
                             
                             # Residual plot
                             st.markdown("### Residual Plot")
                             residual_fig = visualizer.create_residual_plot(df, y_col, predictions)
-                            st.plotly_chart(residual_fig, use_container_width=True)
+                            st.plotly_chart(residual_fig, width='stretch')
                             
                             st.info("""
                             **Residual Plot:** Points should be randomly scattered around zero.
@@ -350,7 +350,7 @@ def render():
                                 results['coefficients'],
                                 "Feature Coefficients"
                             )
-                            st.plotly_chart(importance_fig, use_container_width=True)
+                            st.plotly_chart(importance_fig, width='stretch')
                             
                             # Coefficients table
                             st.markdown("### Model Coefficients")
@@ -360,7 +360,7 @@ def render():
                             })
                             coef_df['Absolute Impact'] = coef_df['Coefficient'].abs()
                             coef_df = coef_df.sort_values('Absolute Impact', ascending=False)
-                            st.dataframe(coef_df, use_container_width=True, hide_index=True)
+                            st.dataframe(coef_df, width='stretch', hide_index=True)
                             
                             st.markdown(f"**Intercept:** {results['intercept']:.4f}")
                             

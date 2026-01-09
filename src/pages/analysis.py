@@ -81,7 +81,7 @@ def render():
                 df = data_handler.sort_data(df, sort_col, sort_order == "Ascending")
         
         # Show dataframe
-        st.dataframe(df, use_container_width=True, height=400)
+        st.dataframe(df, width='stretch', height=400)
         
         # Download filtered data
         csv = data_handler.export_to_csv(df)
@@ -109,7 +109,7 @@ def render():
                 with col2:
                     with st.spinner('Calculating statistics...'):
                         stats_df = analyzer.get_descriptive_stats(df, selected_column)
-                        st.dataframe(stats_df, use_container_width=True, hide_index=True)
+                        st.dataframe(stats_df, width='stretch', hide_index=True)
                         
                         # Additional visualizations for numeric columns
                         if pd.api.types.is_numeric_dtype(df[selected_column]):
@@ -130,7 +130,7 @@ def render():
             
             st.markdown("#### Correlation Matrix")
             st.dataframe(corr_matrix.style.background_gradient(cmap='coolwarm', axis=None), 
-                        use_container_width=True)
+                        width='stretch')
             
             # Find strongest correlations
             st.markdown("#### Strongest Correlations")
@@ -151,7 +151,7 @@ def render():
             
             st.dataframe(
                 corr_df[['Variable 1', 'Variable 2', 'Correlation']],
-                use_container_width=True,
+                width='stretch',
                 hide_index=True
             )
     
@@ -182,7 +182,7 @@ def render():
                 
                 if outliers is not None and len(outliers) > 0:
                     st.markdown("#### Detected Outliers")
-                    st.dataframe(outliers, use_container_width=True)
+                    st.dataframe(outliers, width='stretch')
                     
                     # Visualize
                     st.markdown("#### Distribution with Outliers Highlighted")
@@ -209,7 +209,7 @@ def render():
             
             with col1:
                 st.markdown("#### Value Counts Table")
-                st.dataframe(counts_df, use_container_width=True, hide_index=True)
+                st.dataframe(counts_df, width='stretch', hide_index=True)
             
             with col2:
                 st.markdown("#### Visualization")
@@ -230,7 +230,7 @@ def render():
             
             with col1:
                 st.markdown("#### Missing Values Report")
-                st.dataframe(missing_report, use_container_width=True, hide_index=True)
+                st.dataframe(missing_report, width='stretch', hide_index=True)
             
             with col2:
                 st.markdown("#### Missing Values Visualization")
@@ -262,7 +262,7 @@ def render():
                     st.error(f"Error: {error}")
                 else:
                     st.markdown("#### Group Statistics Table")
-                    st.dataframe(grouped_stats, use_container_width=True, hide_index=True)
+                    st.dataframe(grouped_stats, width='stretch', hide_index=True)
                     
                     st.markdown("#### Mean by Group")
                     st.bar_chart(grouped_stats.set_index(group_col)['Mean'])

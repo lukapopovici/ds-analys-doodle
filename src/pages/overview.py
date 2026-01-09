@@ -99,7 +99,7 @@ def render():
         
         # Show quick preview
         st.markdown("#### Quick Preview")
-        st.dataframe(st.session_state.data.head(10), use_container_width=True)
+        st.dataframe(st.session_state.data.head(10), width='stretch')
         
     else:
         st.info("No data loaded yet. Head to the **Upload Data** page to get started!")

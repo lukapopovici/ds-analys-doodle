@@ -33,7 +33,7 @@ def render():
                     
                     # Show data preview
                     st.markdown("#### Data Preview")
-                    st.dataframe(df.head(20), use_container_width=True)
+                    st.dataframe(df.head(20), width='stretch')
                     
                     # Show data info
                     info = data_handler.get_data_info(df)
@@ -97,7 +97,7 @@ def render():
         # Show preview if sample data is loaded
         if st.session_state.data is not None:
             st.markdown("#### Current Data Preview")
-            st.dataframe(st.session_state.data.head(10), use_container_width=True)
+            st.dataframe(st.session_state.data.head(10), width='stretch')
     
     st.markdown("---")
     

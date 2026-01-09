@@ -4,81 +4,14 @@ from utils.data_handler import DataHandler
 def render():
     """Render the overview page"""
     st.markdown('<h1 class="main-header">DS Doodle Pro</h1>', unsafe_allow_html=True)
-    st.markdown("### Your Complete Data Science Dashboard")
-    
-    # Welcome message
+
     st.markdown("""
-    Welcome to **DS Doodle Pro** - a powerful, interactive data science application built with Streamlit!
-    
-    #### Features
+   Hey!
     """)
     
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        **Data Management**
-        - Upload CSV files
-        - Use sample datasets
-        - Filter and sort data
-        - Export processed data
-        
-        **Advanced Analysis**
-        - Descriptive statistics
-        - Correlation analysis
-        - Outlier detection
-        - Normality tests
-        """)
-    
-    with col2:
-        st.markdown("""
-        **Rich Visualizations**
-        - Interactive Plotly charts
-        - Multiple chart types
-        - Customizable styling
-        - 3D visualizations
-        
-        **Smart Insights**
-        - Group statistics
-        - Missing value reports
-        - Distribution analysis
-        - Trend identification
-        """)
-    
     st.markdown("---")
-    
-    # Quick start guide
-    st.markdown("### Quick Start Guide")
-    
-    with st.expander("1. Load Your Data", expanded=True):
-        st.markdown("""
-        Navigate to the **Upload Data** page to:
-        - Upload your own CSV file, or
-        - Load the sample dataset to explore features
-        """)
-    
-    with st.expander("2. Analyze Your Data"):
-        st.markdown("""
-        Go to the **Analysis** page to:
-        - View descriptive statistics
-        - Check correlations
-        - Detect outliers
-        - Generate insights
-        """)
-    
-    with st.expander("3. Create Visualizations"):
-        st.markdown("""
-        Visit the **Visualization** page to:
-        - Create interactive charts
-        - Customize plot types
-        - Export visualizations
-        - Explore relationships
-        """)
-    
-    st.markdown("---")
-    
-    # Current data status
-    st.markdown("### Current Data Status")
+ 
+    st.markdown("### current data_Status")
     
     if st.session_state.data is not None:
         data_handler = DataHandler()
@@ -99,10 +32,10 @@ def render():
         
         # Show quick preview
         st.markdown("#### Quick Preview")
-        st.dataframe(st.session_state.data.head(10), width='stretch')
+        st.dataframe(st.session_state.data.head(40), width='stretch')
         
     else:
-        st.info("No data loaded yet. Head to the **Upload Data** page to get started!")
+        st.info("No data loaded.")
         
         if st.button("Load Sample Data Now", type="primary"):
             data_handler = DataHandler()

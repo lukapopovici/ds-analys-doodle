@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
+from .debug_decorators import log_call, log_exceptions, timeit
 
 class Analyzer:
     """Perform statistical analysis on data"""
@@ -8,6 +9,8 @@ class Analyzer:
     def __init__(self):
         pass
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def get_descriptive_stats(self, df, column):
         """Get descriptive statistics for a column"""
         if pd.api.types.is_numeric_dtype(df[column]):
@@ -37,11 +40,17 @@ class Analyzer:
             }
             return pd.DataFrame(stats_dict.items(), columns=['Statistic', 'Value'])
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def get_correlation_matrix(self, df):
         """Get correlation matrix for numeric columns"""
         numeric_df = df.select_dtypes(include=[np.number])
         return numeric_df.corr()
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def detect_outliers(self, df, column, method='iqr'):
         """Detect outliers in a numeric column"""
         if not pd.api.types.is_numeric_dtype(df[column]):
@@ -63,12 +72,16 @@ class Analyzer:
         
         return None, "Invalid method"
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def get_value_counts(self, df, column, top_n=10):
         """Get value counts for a column"""
         counts = df[column].value_counts().head(top_n).reset_index()
         counts.columns = [column, 'Count']
         return counts
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def get_missing_values_report(self, df):
         """Get report on missing values"""
         missing = df.isnull().sum()
@@ -83,6 +96,9 @@ class Analyzer:
         report = report[report['Missing Count'] > 0].sort_values('Missing Count', ascending=False)
         return report
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def perform_normality_test(self, df, column):
         """Perform Shapiro-Wilk normality test"""
         if not pd.api.types.is_numeric_dtype(df[column]):
@@ -109,6 +125,9 @@ class Analyzer:
         
         return pd.DataFrame(result.items(), columns=['Metric', 'Value']), None
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def get_group_statistics(self, df, group_col, value_col):
         """Get statistics grouped by a categorical column"""
         if not pd.api.types.is_numeric_dtype(df[value_col]):

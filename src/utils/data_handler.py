@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from io import StringIO
+from .debug_decorators import log_call, log_exceptions, timeit
 
 class DataHandler:
     """Handle all data operations including loading, filtering, and exporting"""
@@ -27,6 +28,9 @@ class DataHandler:
         
         return df
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def load_from_csv(self, uploaded_file):
         """Load data from uploaded CSV file"""
         try:
@@ -36,6 +40,8 @@ class DataHandler:
         except Exception as e:
             return None, str(e)
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def get_data_info(self, df):
         """Get basic information about the dataset"""
         info = {
@@ -48,6 +54,8 @@ class DataHandler:
         }
         return info
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def filter_data(self, df, column, operator, value):
         """Filter dataframe based on conditions"""
         if operator == "equals":
@@ -60,14 +68,20 @@ class DataHandler:
             return df[df[column].astype(str).str.contains(str(value), case=False, na=False)]
         return df
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def sort_data(self, df, column, ascending=True):
         """Sort dataframe by column"""
         return df.sort_values(by=column, ascending=ascending)
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def export_to_csv(self, df):
         """Export dataframe to CSV string"""
         return df.to_csv(index=False)
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def get_column_types(self, df):
         """Get column types categorized"""
         numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()

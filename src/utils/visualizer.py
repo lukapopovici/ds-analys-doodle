@@ -2,6 +2,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
+from .debug_decorators import log_call, log_exceptions, timeit
 
 class Visualizer:
     """Handle all visualization operations"""
@@ -15,6 +16,8 @@ class Visualizer:
             'Pastel': px.colors.qualitative.Pastel
         }
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_line_chart(self, df, x_col, y_col, color_col=None, title="Line Chart"):
         """Create interactive line chart"""
         fig = px.line(df, x=x_col, y=y_col, color=color_col, 
@@ -25,6 +28,8 @@ class Visualizer:
         )
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_scatter_plot(self, df, x_col, y_col, color_col=None, size_col=None, title="Scatter Plot"):
         """Create interactive scatter plot"""
         fig = px.scatter(df, x=x_col, y=y_col, color=color_col, size=size_col,
@@ -32,6 +37,8 @@ class Visualizer:
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_bar_chart(self, df, x_col, y_col, color_col=None, title="Bar Chart"):
         """Create interactive bar chart"""
         fig = px.bar(df, x=x_col, y=y_col, color=color_col, 
@@ -39,6 +46,8 @@ class Visualizer:
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_histogram(self, df, column, nbins=30, title="Histogram"):
         """Create histogram"""
         fig = px.histogram(df, x=column, nbins=nbins, title=title)
@@ -48,12 +57,17 @@ class Visualizer:
         )
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_box_plot(self, df, y_col, x_col=None, title="Box Plot"):
         """Create box plot"""
         fig = px.box(df, y=y_col, x=x_col, title=title)
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def create_heatmap(self, df, title="Correlation Heatmap", columns=None):
         """Create correlation heatmap for numeric or encoded categorical columns"""
         from sklearn.preprocessing import LabelEncoder
@@ -98,6 +112,9 @@ class Visualizer:
         )
         return fig
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def create_categorical_heatmap(self, df, categorical_cols, title="Categorical Correlation Heatmap"):
         """Create heatmap showing relationships between categorical variables using Cramér's V"""
         from scipy.stats import chi2_contingency
@@ -140,6 +157,8 @@ class Visualizer:
         )
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_pie_chart(self, df, names_col, values_col=None, title="Pie Chart"):
         """Create pie chart"""
         if values_col is None:
@@ -154,24 +173,33 @@ class Visualizer:
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_area_chart(self, df, x_col, y_col, color_col=None, title="Area Chart"):
         """Create area chart"""
         fig = px.area(df, x=x_col, y=y_col, color=color_col, title=title)
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_violin_plot(self, df, y_col, x_col=None, title="Violin Plot"):
         """Create violin plot"""
         fig = px.violin(df, y=y_col, x=x_col, title=title, box=True)
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @log_call(level="DEBUG")
     def create_3d_scatter(self, df, x_col, y_col, z_col, color_col=None, title="3D Scatter Plot"):
         """Create 3D scatter plot"""
         fig = px.scatter_3d(df, x=x_col, y=y_col, z=z_col, color=color_col, title=title)
         fig.update_layout(template='plotly_white')
         return fig
     
+    @log_exceptions()
+    @timeit(level="INFO")
+    @log_call(level="DEBUG")
     def perform_linear_regression(self, df, x_cols, y_col):
         """
         Perform linear regression with multiple features

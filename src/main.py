@@ -47,6 +47,8 @@ def main():
 
     if 'terminal_enabled' not in st.session_state:
         st.session_state['terminal_enabled'] = terminal.is_enabled()
+        terminal.enable()
+        terminal.info("Application started")
 
     new_terminal_val = st.sidebar.checkbox("Enable terminal logging", value=st.session_state['terminal_enabled'])
     if new_terminal_val != st.session_state['terminal_enabled']:

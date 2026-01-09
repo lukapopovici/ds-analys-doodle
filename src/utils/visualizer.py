@@ -4,6 +4,27 @@ import pandas as pd
 import numpy as np
 from .debug_decorators import log_call, log_exceptions, timeit
 
+# Optional heavy dependencies: try to import at module import time and
+# provide clear runtime errors if functionality requiring them is called
+try:
+    from sklearn.preprocessing import LabelEncoder
+    from sklearn.linear_model import LinearRegression
+    from sklearn.metrics import r2_score, mean_squared_error
+    _HAS_SKLEARN = True
+except Exception:
+    LabelEncoder = None
+    LinearRegression = None
+    r2_score = None
+    mean_squared_error = None
+    _HAS_SKLEARN = False
+
+try:
+    from scipy.stats import chi2_contingency
+    _HAS_SCIPY = True
+except Exception:
+    chi2_contingency = None
+    _HAS_SCIPY = False
+
 class Visualizer:
     """Handle all visualization operations"""
     
@@ -70,8 +91,9 @@ class Visualizer:
     @log_call(level="DEBUG")
     def create_heatmap(self, df, title="Correlation Heatmap", columns=None):
         """Create correlation heatmap for numeric or encoded categorical columns"""
-        from sklearn.preprocessing import LabelEncoder
-        
+        if not _HAS_SKLEARN:
+            raise RuntimeError("scikit-learn is required for create_heatmap (LabelEncoder). Install scikit-learn to use this feature.")
+
         if columns:
             # Use only selected columns
             df_subset = df[columns].copy()
@@ -117,8 +139,9 @@ class Visualizer:
     @log_call(level="DEBUG")
     def create_categorical_heatmap(self, df, categorical_cols, title="Categorical Correlation Heatmap"):
         """Create heatmap showing relationships between categorical variables using Cramér's V"""
-        from scipy.stats import chi2_contingency
-        
+        if not _HAS_SCIPY:
+            raise RuntimeError("scipy is required for create_categorical_heatmap (chi2_contingency). Install scipy to use this feature.")
+
         def cramers_v(x, y):
             """Calculate Cramér's V statistic for categorical-categorical association"""
             confusion_matrix = pd.crosstab(x, y)
@@ -205,10 +228,9 @@ class Visualizer:
         Perform linear regression with multiple features
         Returns: model, predictions, metrics, and visualization figure
         """
-        from sklearn.preprocessing import LabelEncoder
-        from sklearn.linear_model import LinearRegression
-        from sklearn.metrics import r2_score, mean_squared_error
-        
+        if not _HAS_SKLEARN:
+            raise RuntimeError("scikit-learn is required for perform_linear_regression. Install scikit-learn to use this feature.")
+
         # Prepare data
         X = df[x_cols].copy()
         y = df[y_col].copy()

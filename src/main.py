@@ -4,7 +4,7 @@ from utils.visualizer import Visualizer
 from utils.analyzer import Analyzer
 from utils.terminal import terminal
 from pages import overview, analysis, visualization, upload
-
+from utils.css_config import list_css_configs, load_css, save_uploaded_css, CSS_DIR
 st.set_page_config(
     page_title="DS Doodle Pro",
     page_icon="📊",
@@ -12,27 +12,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS
-st.markdown("""
-    <style>
-    .main-header {
-        font-size: 3rem;
-        font-weight: bold;
-        color: #1f77b4;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-    .metric-card {
-        background-color: #f0f2f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .stProgress > div > div > div > div {
-        background-color: #1f77b4;
-    }
-    </style>
-""", unsafe_allow_html=True)
+
+def apply_css_from_text(css_text: str) -> None:
+    """Apply raw CSS text into the Streamlit page."""
+    if css_text:
+        st.markdown(f"<style>{css_text}</style>", unsafe_allow_html=True)
 
 def main():
     # Initialize session state
@@ -44,6 +28,39 @@ def main():
     # Sidebar navigation
     st.sidebar.title("DS Doodle Pro")
     st.sidebar.markdown("---")
+
+    # Theme CSS loader
+    css_options = list_css_configs()
+    if not css_options:
+        css_options = ["default"]
+    if 'css_theme' not in st.session_state or st.session_state.get('css_theme') not in css_options:
+        st.session_state['css_theme'] = css_options[0]
+
+    css_choice = st.sidebar.selectbox("Theme CSS", css_options, index=css_options.index(st.session_state['css_theme']))
+    if css_choice != st.session_state['css_theme']:
+        st.session_state['css_theme'] = css_choice
+
+    # Apply selected CSS
+    try:
+        css_text = load_css(st.session_state['css_theme'])
+        apply_css_from_text(css_text)
+    except Exception as e:
+        st.sidebar.error(f"Could not load CSS config: {e}")
+
+    # Upload CSS (applied immediately; can optionally save to configs)
+    uploaded_css = st.sidebar.file_uploader("Upload CSS (applied immediately)", type=['css'])
+    if uploaded_css:
+        uploaded_text = uploaded_css.getvalue().decode('utf-8')
+        apply_css_from_text(uploaded_text)
+        save_name = st.sidebar.text_input("Save uploaded as", value="", key="save_css_name")
+        if save_name:
+            if st.sidebar.button("Save uploaded CSS", key="save_css_btn"):
+                try:
+                    path = save_uploaded_css(save_name.strip(), uploaded_text)
+                    st.sidebar.success(f"Saved to {path.name}")
+                    st.experimental_rerun()
+                except Exception as e:
+                    st.sidebar.error(f"Failed to save CSS: {e}")
 
     if 'terminal_enabled' not in st.session_state:
         st.session_state['terminal_enabled'] = terminal.is_enabled()

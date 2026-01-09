@@ -132,16 +132,6 @@ class Terminal:
         """Write message to stderr (visible in console)."""
         print(formatted_msg, file=sys.stderr, flush=True)
 
-    def _write_to_external_terminal(self, formatted_msg: str) -> None:
-        """Write message to external terminal if available."""
-        with self._external_term_lock:
-            if self._external_terminal is not None and self._external_terminal.poll() is None:
-                try:
-                    # For demonstration - in reality, you'd need a pipe or socket
-                    # This is complex to implement robustly without a proper IPC
-                    self._write_to_stderr("(External terminal output not implemented in this example)")
-                except Exception:
-                    pass
 
     def log(self, message: str, level: str = "INFO", 
             include_timestamp: bool = True, color: bool = True) -> bool:
@@ -196,12 +186,8 @@ class Terminal:
         else:
             formatted_msg = f"{prefix}[{level_upper}] {message}"
         
-        # Write to stderr (always visible in console where app is running)
-        self._write_to_stderr(formatted_msg)
         
-        # Optionally write to external terminal
-        if self._use_external_term:
-            self._write_to_external_terminal(formatted_msg)
+        self._write_to_stderr(formatted_msg)
         
         return True
 

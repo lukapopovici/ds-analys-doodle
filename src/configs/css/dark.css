@@ -1,0 +1,8 @@
+/* Dark theme */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+.main-header { color: #66b2ff; }
+.metric-card { background-color: #1e1e1e; border: 1px solid #2a2a2a; }
+.stProgress > div > div > div > div { background-color: #66b2ff; }

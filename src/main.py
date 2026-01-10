@@ -3,7 +3,7 @@ from utils.data_handler import DataHandler
 from utils.visualizer import Visualizer
 from utils.analyzer import Analyzer
 from utils.terminal import terminal
-from pages import overview, analysis, visualization, upload
+from pages_module import overview, analysis, visualization, upload
 from utils.css_config import list_css_configs, load_css, save_uploaded_css, CSS_DIR
 st.set_page_config(
     page_title="DS Doodle Pro",

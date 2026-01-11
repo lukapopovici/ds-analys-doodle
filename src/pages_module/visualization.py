@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from utils.visualizer import Visualizer
 from utils.data_handler import DataHandler
+from .chart_constants import CHART_TYPES
 
 def render():
     """Render the visualization page"""
@@ -25,29 +26,34 @@ def render():
     
     # Sidebar for chart configuration
     st.sidebar.markdown("### Chart Configuration")
-    
-    chart_type = st.sidebar.selectbox(
-        "Select Chart Type",
-        [
-            "Line Chart",
-            "Scatter Plot",
-            "Bar Chart",
-            "Histogram",
-            "Box Plot",
-            "Pie Chart",
-            "Area Chart",
-            "Violin Plot",
-            "Correlation Heatmap",
-            "Categorical Heatmap",
-            "3D Scatter Plot",
-            "Linear Regression",
-        ]
-    )
-    
+
+    # Load user-configured enabled charts (stored in session state by Chart Settings page)
+    enabled_charts = st.session_state.get('enabled_charts', CHART_TYPES.copy())
+    max_visible = st.session_state.get('max_visible_charts', 0)
+
+    if max_visible and isinstance(max_visible, int) and max_visible > 0:
+        available_charts = enabled_charts[:max_visible]
+    else:
+        available_charts = enabled_charts
+
+    if not available_charts:
+        st.sidebar.warning("No charts enabled — visit Chart Settings to enable some charts.")
+        chart_type = None
+    else:
+        chart_type = st.sidebar.selectbox("Select Chart Type", available_charts, key='chart_type')
+
     st.sidebar.markdown("---")
+    if st.sidebar.button("Chart Settings"):
+        st.switch_page("pages_module/chart_settings.py")
 
 
     # Main visualization area
+    if not chart_type:
+        st.warning("No chart type available. Go to Chart Settings to enable charts.")
+        if st.button("Open Chart Settings"):
+            st.switch_page("pages_module/chart_settings.py")
+        return
+
     st.markdown(f"### {chart_type}")
     
     # Chart-specific configurations

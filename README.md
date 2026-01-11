@@ -6,6 +6,7 @@ A small Streamlit-based data analysis playground.
 
 - Python 3.10 or newer
 - Optional: Docker and Docker Compose for containerized runs
+- Dependency management: this project uses a lockfile `uv.lock`. 
 
 ## Local development (recommended)
 
@@ -15,47 +16,20 @@ A small Streamlit-based data analysis playground.
 git clone <repo-url>
 cd ds-analys-doodle
 ```
-2. Create and activate a virtual environment:
 
-On macOS / Linux:
+2. Preferred: use `uv` to manage the environment and install dependencies from `uv.lock`:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
+- If you use `uv`, follow your normal `uv` workflow to create/activate the virtual environment and install packages from `uv.lock` (see `uv` documentation for exact commands).
 
-On Windows (PowerShell):
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-```
-
-
-
-Note: Installing dependencies is not necessary if `uv.lock` is present in the folder.
-
-3. Install dependencies (choose one approach):
-
-- Using the project's lockfile (preferred when available):
-  - If you use `uv`: follow your `uv` workflow to install from `uv.lock`.
-  - If you use `poetry`: run `poetry install` or export requirements and install with pip.
-- Using pip (fallback):
-
-```bash
-# If a requirements file exists
-pip install -r requirements.txt
-# Or install the package in editable mode
-pip install -e .
-```
+3. Alternative: create a standard Python venv and install from the lockfile (fallback):
 
 4. Run the app with Streamlit:
 
 ```bash
+cd src
 streamlit run src/main.py --server.port 8501 --server.headless true
 ```
 
-Open http://localhost:8501 in your browser.
 
 ## Docker (optional)
 

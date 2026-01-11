@@ -1,17 +1,74 @@
-/* Default theme for DS Doodle Pro */
+.stApp {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
+
+
+html, body, [class*="css"] {
+    color: #1a1a1a !important;
+}
+
+
 .main-header {
     font-size: 3rem;
-    font-weight: bold;
-    color: #1f77b4;
+    font-weight: 700;
+    color: #0f4c81 !important;
     text-align: center;
     margin-bottom: 2rem;
 }
+
+
 .metric-card {
-    background-color: #f0f2f6;
+    background-color: #f5f7fa;
     padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e0e0e0;
+    color: #1a1a1a !important;
 }
+
+
+.metric-card * {
+    color: #1a1a1a !important;
+}
+
+
+.stMarkdown,
+.stText,
+.stMetric,
+.stCaption,
+.stDataFrame,
+label,
+p,
+span,
+div {
+    color: #1a1a1a !important;
+}
+
+/* Progress bar */
 .stProgress > div > div > div > div {
-    background-color: #1f77b4;
+    background-color: #0f4c81;
+}
+
+/* Inputs */
+input, textarea {
+    color: #1a1a1a !important;
+    background-color: #ffffff !important;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #f8f9fb;
+    color: #1a1a1a;
+}
+
+
+/* ===== DO NOT OVERRIDE CHART COLORS ===== */
+svg,
+svg *,
+.stPlotlyChart *,
+.stAltairChart * {
+    color: unset !important;
+    fill: unset !important;
+    stroke: unset !important;
 }

@@ -6,7 +6,7 @@ from utils.terminal import terminal
 from pages_module import overview, analysis, visualization, upload
 from utils.css_config import list_css_configs, load_css, save_uploaded_css, CSS_DIR
 st.set_page_config(
-    page_title="DS Doodle Pro",
+    page_title="SCOPE",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -26,7 +26,7 @@ def main():
         st.session_state.data_handler = DataHandler()
     
     # Sidebar navigation
-    st.sidebar.title("DS Doodle Pro")
+    st.sidebar.title("SCOPE")
     st.sidebar.markdown("---")
 
     # Theme CSS loader
@@ -68,6 +68,7 @@ def main():
         terminal.info("Application started")
 
     new_terminal_val = st.sidebar.checkbox("Enable terminal logging", value=st.session_state['terminal_enabled'])
+    terminal.set_enabled(new_terminal_val)              
     if new_terminal_val != st.session_state['terminal_enabled']:
         st.session_state['terminal_enabled'] = new_terminal_val
         terminal.set_enabled(new_terminal_val)

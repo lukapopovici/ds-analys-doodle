@@ -10,7 +10,7 @@ def render():
     if st.session_state.data is None:
         st.warning("No data loaded. Please upload data first!")
         if st.button("Go to Upload Page"):
-            st.switch_page("pages/upload.py")
+            st.switch_page("pages_module/upload.py")
         return
     
     df = st.session_state.data

@@ -3,7 +3,7 @@ from utils.data_handler import DataHandler
 
 def render():
     """Render the overview page"""
-    st.markdown('<h1 class="main-header">DS Doodle Pro</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">SCOPE</h1>', unsafe_allow_html=True)
 
     st.markdown("""
    Hey!
